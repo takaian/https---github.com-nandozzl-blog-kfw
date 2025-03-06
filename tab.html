@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela de Músicas</title>
+    <link rel="stylesheet" href="estilo.css">
+    <header>
+        <img src="ifrnlogo.jpg" alt="Logo IFRN" class="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Página Inicial</a></li>
+                <li><a href="form.html">Formulário</a></li>
+                <li><a href="tab.html">Tabela de Musicas</a></li>
+                <li><a href="tabelaDEV.html">Tabela dos desenvolvedores</a></li>
+            </ul>
+        </nav>
+    </header>
+    <style> 
+        
+        /* Estilos para a tabela e formulário */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="text"] {
+            padding: 8px;
+            margin: 5px;
+            width: 80%;
+        }
+        button {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .form-section {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Cabeçalho com logo -->
+    <img src="ifrnlogo.jpg" alt="Logo IFRN" class="logo">
+
+    <!-- Navegação -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Página Inicial</a></li>
+            <li><a href="dev.html">Desenvolvedores</a></li>
+            <li><a href="form.html">Form</a></li>
+            <li><a href="tabelaDEV.html">Tabela dos Desenvolvedores</a></li>
+        </ul>
+    </nav>
+
+    <!-- Seção do Formulário -->
+    <section class="form-section">
+        <h2>Liste suas músicas favoritas</h2>
+        <form id="musicForm">
+            <div class="grupo">
+                <label for="bandName">Banda:</label>
+                <input type="text" id="bandName" name="bandName" placeholder="Digite o nome da banda" required>
+            </div>
+
+            <div class="grupo">
+                <label for="songName">Música:</label>
+                <input type="text" id="songName" name="songName" placeholder="Digite o nome da música" required>
+            </div>
+
+            <button type="submit">Adicionar Música</button>
+        </form>
+
+        <!-- Tabela para listar as músicas -->
+        <h3>Lista de Músicas</h3>
+        <table id="musicTable">
+            <thead>
+                <tr>
+                    <th>Banda</th>
+                    <th>Música</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- As músicas serão adicionadas aqui -->
+            </tbody>
+        </table>
+    </section>
+    <caption>Minhas favoritas</caption>
+
+    <script>
+        // Dados iniciais para a tabela (10 registros fictícios)
+        const initialData = [
+            ['Coldplay', 'Yellow'],
+            ['Imagine Dragons', 'Believer'],
+            ['Queen', 'Bohemian Rhapsody'],
+            ['Adele', 'Rolling in the Deep'],
+            ['The Rolling Stones', 'Paint It Black'],
+            ['Pink Floyd', 'Comfortably Numb'],
+            ['Ed Sheeran', 'Shape of You'],
+            ['Henrique e Juliano', 'Ultima Saudade'],
+            ['j. Eskine', 'Resenha do Arrocha'],
+            ['1Kilo', 'Deixe me ir']
+        ];
+
+        // Função para carregar os registros iniciais na tabela
+        function loadInitialData() {
+            const tableBody = document.querySelector('#musicTable tbody');
+            initialData.forEach(item => {
+                const newRow = document.createElement('tr');
+
+                const tdBand = document.createElement('td');
+                tdBand.textContent = item[0]; // Banda
+                const tdSong = document.createElement('td');
+                tdSong.textContent = item[1]; // Música
+
+                newRow.appendChild(tdBand);
+                newRow.appendChild(tdSong);
+
+                tableBody.appendChild(newRow);
+            });
+        }
+
+        // Função para adicionar música à tabela
+        document.getElementById('musicForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o envio do formulário
+
+            // Pega os valores dos campos de entrada
+            const bandName = document.getElementById('bandName').value;
+            const songName = document.getElementById('songName').value;
+
+            // Cria uma nova linha na tabela
+            const newRow = document.createElement('tr');
+
+            // Cria as células e adiciona os valores
+            const tdBand = document.createElement('td');
+            tdBand.textContent = bandName;
+            const tdSong = document.createElement('td');
+            tdSong.textContent = songName;
+
+            // Adiciona as células à linha
+            newRow.appendChild(tdBand);
+            newRow.appendChild(tdSong);
+
+            // Adiciona a linha à tabela
+            document.querySelector('#musicTable tbody').appendChild(newRow);
+
+            // Limpa os campos de entrada
+            document.getElementById('bandName').value = '';
+            document.getElementById('songName').value = '';
+        });
+
+        // Carregar os dados iniciais quando a página for carregada
+        window.onload = loadInitialData;
+    </script>
+</body>
+</html>
